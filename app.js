@@ -523,7 +523,8 @@ const UI = {
     screens: {
         briefing: document.getElementById('screen-briefing'),
         game: document.getElementById('screen-game'),
-        summary: document.getElementById('screen-summary')
+        summary: document.getElementById('screen-summary'),
+        settings: document.getElementById('screen-settings')
     },
     elements: {
         briefingRule: document.getElementById('briefing-rule'),
@@ -538,6 +539,8 @@ const UI = {
         metricRegularity: document.getElementById('metric-regularity'),
         sessionCount: document.getElementById('session-count'),
         btnReplay: document.getElementById('btn-replay'),
+        btnSettings: document.getElementById('btn-settings'),
+        btnBack: document.getElementById('btn-back'),
         btnExportJSON: document.getElementById('btn-export-json'),
         btnExportCSV: document.getElementById('btn-export-csv'),
         btnExportAll: document.getElementById('btn-export-all'),
@@ -570,6 +573,8 @@ const UI = {
         this.elements.btnNo.addEventListener('click', () => this.onResponse('NO'));
         this.elements.btnPause.addEventListener('click', () => this.onPause());
         this.elements.btnReplay.addEventListener('click', () => this.onReplay());
+        this.elements.btnSettings.addEventListener('click', () => this.onSettings());
+        this.elements.btnBack.addEventListener('click', () => this.onBack());
         this.elements.btnExportJSON.addEventListener('click', () => this.onExportJSON());
         this.elements.btnExportCSV.addEventListener('click', () => this.onExportCSV());
         this.elements.btnExportAll.addEventListener('click', () => this.onExportAll());
@@ -733,6 +738,15 @@ const UI = {
 
     onReplay() {
         location.reload();
+    },
+
+    onSettings() {
+        this.updateSessionCount();
+        this.showScreen('settings');
+    },
+
+    onBack() {
+        this.showScreen('summary');
     },
 
     onExportJSON() {

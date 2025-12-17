@@ -18,13 +18,21 @@
             <h1>Prends Ton Temps</h1>
         </div>
         <div class="screen-body">
-            <div class="rule-card">
-                <h2 id="briefing-rule">Chargement...</h2>
+            <div style="max-width: 480px; margin: 0 auto; text-align: left;">
+                <p style="font-size: 16px; line-height: 1.6; color: #555; margin-bottom: 24px;">
+                    Des formes, lettres ou chiffres vont apparaître à l'écran.
+                    Tu dois répondre <strong>OUI</strong> ou <strong>NON</strong> selon une règle simple.
+                </p>
+                <div class="rule-card">
+                    <h2 id="briefing-rule" style="margin: 0;">Chargement...</h2>
+                </div>
+                <p style="font-size: 14px; color: #888; margin-top: 16px;">
+                    La règle changera de temps en temps pendant le jeu. On te préviendra.
+                </p>
             </div>
-            <p class="text-center" style="color: #666;">Quand tu veux.</p>
         </div>
         <div class="screen-footer">
-            <button id="btn-ready" class="btn btn-primary" style="width: 100%;">Je suis prêt</button>
+            <button id="btn-ready" class="btn btn-primary" style="max-width: 300px; margin: 0 auto; display: block;">Je suis prêt·e</button>
         </div>
     </div>
 
@@ -54,7 +62,6 @@
     <div id="screen-summary" class="screen">
         <div class="screen-header">
             <h1>Merci. À bientôt.</h1>
-            <p id="session-count" style="color: #888; font-size: 14px; margin-top: 8px;"></p>
         </div>
         <div class="screen-body">
             <div class="summary-grid">
@@ -76,16 +83,37 @@
             </div>
         </div>
         <div class="screen-footer">
-            <div class="action-buttons">
+            <div class="action-buttons" style="flex-direction: row; justify-content: center; align-items: center;">
                 <button id="btn-replay" class="btn btn-primary">Rejouer</button>
-                <button id="btn-export-json" class="btn btn-secondary">Exporter cette session (JSON)</button>
-                <button id="btn-export-csv" class="btn btn-secondary">Exporter cette session (CSV)</button>
+                <button id="btn-settings" class="btn btn-icon" title="Paramètres" style="font-size: 24px; width: 56px; height: 56px; position: static;">⚙️</button>
             </div>
-            <div class="action-buttons" style="margin-top: 12px;">
-                <button id="btn-export-all" class="btn btn-secondary">Exporter toutes les sessions</button>
-                <button id="btn-delete-last" class="btn btn-secondary" style="background: #ff6b6b;">Supprimer dernière session</button>
-                <button id="btn-delete-all" class="btn btn-secondary" style="background: #d63031;">Supprimer toutes les sessions</button>
+        </div>
+    </div>
+
+    <!-- ===== ÉCRAN D: PARAMÈTRES ===== -->
+    <div id="screen-settings" class="screen">
+        <div class="screen-header">
+            <h1>Paramètres</h1>
+            <p id="session-count" style="color: #888; font-size: 14px; margin-top: 8px;"></p>
+        </div>
+        <div class="screen-body">
+            <div style="max-width: 600px; margin: 0 auto;">
+                <h3 style="margin-bottom: 16px; color: #333;">Exporter les données</h3>
+                <div class="action-buttons" style="margin-bottom: 32px;">
+                    <button id="btn-export-json" class="btn btn-secondary">Session actuelle (JSON)</button>
+                    <button id="btn-export-csv" class="btn btn-secondary">Session actuelle (CSV)</button>
+                    <button id="btn-export-all" class="btn btn-secondary">Toutes les sessions (JSON)</button>
+                </div>
+
+                <h3 style="margin-bottom: 16px; color: #333;">Gérer l'historique</h3>
+                <div class="action-buttons">
+                    <button id="btn-delete-last" class="btn btn-secondary" style="background: #ff6b6b; color: white;">Supprimer dernière session</button>
+                    <button id="btn-delete-all" class="btn btn-secondary" style="background: #d63031; color: white;">Supprimer toutes les sessions</button>
+                </div>
             </div>
+        </div>
+        <div class="screen-footer">
+            <button id="btn-back" class="btn btn-primary" style="max-width: 200px; margin: 0 auto; display: block;">Retour</button>
         </div>
     </div>
 
