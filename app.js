@@ -259,7 +259,10 @@ function startSession() {
     STATE.trialIndex = 0;
     STATE.trials = [];
     STATE.recentTrials = [];
-    STATE.currentRule = selectNextRule();
+    // Utiliser la règle déjà sélectionnée dans init(), sinon en sélectionner une nouvelle
+    if (!STATE.currentRule) {
+        STATE.currentRule = selectNextRule();
+    }
     STATE.trialsUntilSwitch = randomInt(STATE.switchEvery.min, STATE.switchEvery.max);
     STATE.totalSwitches = 0;
     STATE.level = CONFIG.levelStart;
@@ -474,6 +477,11 @@ const UI = {
     init() {
         this.bindEvents();
         this.showScreen('briefing');
+
+        // Afficher la règle initiale dès le chargement
+        STATE.currentRule = selectNextRule();
+        this.elements.briefingRule.textContent = STATE.currentRule.label;
+
         if (CONFIG.debugMode) {
             document.body.classList.add('debug-mode');
         }
