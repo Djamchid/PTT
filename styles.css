@@ -1,0 +1,334 @@
+/* ===== VARIABLES CSS (CHARTE) ===== */
+:root {
+    --color-bg: #F5F6F4;
+    --color-text: #2E2E2E;
+    --color-accent: #5C7A8A;
+    --color-positive: #8FAF9F;
+    --color-alert: #E6C79C;
+    --color-btn-yes: #8FAF9F;
+    --color-btn-no: #E0E0E0;
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --radius: 16px;
+    --spacing: 16px;
+}
+
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+    touch-action: manipulation;
+}
+
+/* ===== LAYOUT ===== */
+.screen {
+    display: none;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: var(--spacing);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.screen.active {
+    display: flex;
+    opacity: 1;
+}
+
+.screen-header {
+    flex-shrink: 0;
+    text-align: center;
+    padding: var(--spacing) 0;
+}
+
+.screen-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: calc(var(--spacing) * 2);
+}
+
+.screen-footer {
+    flex-shrink: 0;
+    padding: var(--spacing) 0;
+}
+
+/* ===== TYPOGRAPHIE ===== */
+h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: calc(var(--spacing) / 2);
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: var(--spacing);
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* ===== RÈGLE ===== */
+.rule-card {
+    background: white;
+    padding: calc(var(--spacing) * 2);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.rule-card h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.4;
+}
+
+.rule-banner {
+    background: white;
+    padding: var(--spacing);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-text);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* ===== STIMULUS ===== */
+.stimulus-container {
+    width: 100%;
+    max-width: 400px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.stimulus {
+    font-size: 120px;
+    font-weight: 600;
+    text-align: center;
+    transition: opacity 0.2s ease;
+}
+
+.stimulus.shape {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+}
+
+.stimulus.shape.square {
+    border-radius: 8px;
+}
+
+.stimulus.shape.triangle {
+    width: 0;
+    height: 0;
+    border-left: 80px solid transparent;
+    border-right: 80px solid transparent;
+    border-bottom: 140px solid currentColor;
+    font-size: 0;
+}
+
+/* ===== BOUTONS ===== */
+.btn {
+    min-height: 64px;
+    padding: var(--spacing) calc(var(--spacing) * 2);
+    border: none;
+    border-radius: var(--radius);
+    font-family: var(--font-family);
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background: var(--color-accent);
+    color: white;
+    box-shadow: 0 4px 12px rgba(92, 122, 138, 0.3);
+}
+
+.btn-yes {
+    background: var(--color-btn-yes);
+    color: var(--color-text);
+    flex: 1;
+    min-width: 40%;
+}
+
+.btn-no {
+    background: var(--color-btn-no);
+    color: var(--color-text);
+    border: 2px solid #ccc;
+    flex: 1;
+    min-width: 40%;
+}
+
+.response-buttons {
+    display: flex;
+    gap: var(--spacing);
+    width: 100%;
+    max-width: 600px;
+}
+
+.btn-icon {
+    min-height: 48px;
+    width: 48px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: var(--color-accent);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: absolute;
+    top: var(--spacing);
+    right: var(--spacing);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--color-accent);
+    border: 2px solid var(--color-accent);
+}
+
+/* ===== RÉSUMÉ ===== */
+.summary-grid {
+    display: grid;
+    gap: var(--spacing);
+    width: 100%;
+    max-width: 600px;
+}
+
+.metric-card {
+    background: white;
+    padding: calc(var(--spacing) * 1.5);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.metric-label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.metric-value {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+.metric-description {
+    font-size: 14px;
+    color: #888;
+    margin-top: 8px;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing);
+    width: 100%;
+    max-width: 400px;
+}
+
+/* ===== FEEDBACK ===== */
+.feedback {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: calc(var(--spacing) * 2);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 100;
+}
+
+.feedback.show {
+    opacity: 1;
+}
+
+/* ===== UTILITAIRES ===== */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mb-1 {
+    margin-bottom: var(--spacing);
+}
+
+.mb-2 {
+    margin-bottom: calc(var(--spacing) * 2);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (min-width: 768px) {
+    .screen {
+        padding: calc(var(--spacing) * 2);
+    }
+
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ===== DEBUG MODE ===== */
+.debug-info {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 8px;
+    font-size: 12px;
+    font-family: monospace;
+    display: none;
+}
+
+body.debug-mode .debug-info {
+    display: block;
+}
