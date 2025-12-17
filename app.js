@@ -524,11 +524,13 @@ const UI = {
         briefing: document.getElementById('screen-briefing'),
         game: document.getElementById('screen-game'),
         summary: document.getElementById('screen-summary'),
-        settings: document.getElementById('screen-settings')
+        settings: document.getElementById('screen-settings'),
+        stats: document.getElementById('screen-stats')
     },
     elements: {
         briefingRule: document.getElementById('briefing-rule'),
         btnReady: document.getElementById('btn-ready'),
+        btnSettingsBriefing: document.getElementById('btn-settings-briefing'),
         gameRuleBanner: document.getElementById('game-rule-banner'),
         stimulus: document.getElementById('stimulus'),
         btnYes: document.getElementById('btn-yes'),
@@ -541,11 +543,15 @@ const UI = {
         btnReplay: document.getElementById('btn-replay'),
         btnSettings: document.getElementById('btn-settings'),
         btnBack: document.getElementById('btn-back'),
+        btnStats: document.getElementById('btn-stats'),
+        btnBackStats: document.getElementById('btn-back-stats'),
         btnExportJSON: document.getElementById('btn-export-json'),
         btnExportCSV: document.getElementById('btn-export-csv'),
         btnExportAll: document.getElementById('btn-export-all'),
         btnDeleteLast: document.getElementById('btn-delete-last'),
         btnDeleteAll: document.getElementById('btn-delete-all'),
+        durationSlider: document.getElementById('duration-slider'),
+        durationValue: document.getElementById('duration-value'),
         feedback: document.getElementById('feedback'),
         debugInfo: document.getElementById('debug-info')
     },
@@ -569,17 +575,21 @@ const UI = {
 
     bindEvents() {
         this.elements.btnReady.addEventListener('click', () => this.onReady());
+        this.elements.btnSettingsBriefing.addEventListener('click', () => this.onSettings());
         this.elements.btnYes.addEventListener('click', () => this.onResponse('YES'));
         this.elements.btnNo.addEventListener('click', () => this.onResponse('NO'));
         this.elements.btnPause.addEventListener('click', () => this.onPause());
         this.elements.btnReplay.addEventListener('click', () => this.onReplay());
         this.elements.btnSettings.addEventListener('click', () => this.onSettings());
         this.elements.btnBack.addEventListener('click', () => this.onBack());
+        this.elements.btnStats.addEventListener('click', () => this.onStats());
+        this.elements.btnBackStats.addEventListener('click', () => this.onBackStats());
         this.elements.btnExportJSON.addEventListener('click', () => this.onExportJSON());
         this.elements.btnExportCSV.addEventListener('click', () => this.onExportCSV());
         this.elements.btnExportAll.addEventListener('click', () => this.onExportAll());
         this.elements.btnDeleteLast.addEventListener('click', () => this.onDeleteLast());
         this.elements.btnDeleteAll.addEventListener('click', () => this.onDeleteAll());
+        this.elements.durationSlider.addEventListener('input', (e) => this.onDurationChange(e));
     },
 
     showScreen(name) {
@@ -749,6 +759,23 @@ const UI = {
         this.showScreen('summary');
     },
 
+    onStats() {
+        this.showComparativeStats();
+        this.showScreen('stats');
+    },
+
+    onBackStats() {
+        this.showScreen('settings');
+    },
+
+    onDurationChange(e) {
+        const seconds = parseInt(e.target.value);
+        CONFIG.durationMs = seconds * 1000;
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        this.elements.durationValue.textContent = `${minutes}:${secs.toString().padStart(2, '0')}`;
+    },
+
     onExportJSON() {
         const summary = {
             sessionId: STATE.sessionId,
@@ -823,6 +850,114 @@ const UI = {
             `Pace: ${trial.trialMeta.paceMs}ms | ` +
             `Level: ${trial.trialMeta.level} | ` +
             `Fatigue: ${STATE.fatigueIndex.toFixed(2)}`;
+    },
+
+    showComparativeStats() {
+        const sessions = loadSessionsFromStorage();
+
+        if (sessions.length === 0) {
+            this.showFeedback('Aucun historique disponible', 2000);
+            return;
+        }
+
+        // Métriques de la session actuelle
+        const currentMetrics = calculateMetrics(STATE.trials);
+
+        // Calcul des moyennes historiques
+        const historicalMetrics = sessions.map(s => s.summary.metrics);
+        const avgACC = historicalMetrics.reduce((sum, m) => sum + m.ACC, 0) / historicalMetrics.length;
+        const avgRT = historicalMetrics.reduce((sum, m) => sum + m.RT_MEDIAN_CORRECT, 0) / historicalMetrics.length;
+        const avgVAR = historicalMetrics.reduce((sum, m) => sum + m.RTVAR_ROBUST, 0) / historicalMetrics.length;
+        const avgSWITCH = historicalMetrics.reduce((sum, m) => sum + m.SWITCH_COST, 0) / historicalMetrics.length;
+
+        // Affichage ACC
+        document.getElementById('stat-acc-current').textContent = (currentMetrics.ACC * 100).toFixed(1) + '%';
+        document.getElementById('stat-acc-avg').textContent = (avgACC * 100).toFixed(1) + '%';
+        this.renderStatBar('bar-acc', currentMetrics.ACC, avgACC, 1);
+
+        // Affichage RT
+        document.getElementById('stat-rt-current').textContent = Math.round(currentMetrics.RT_MEDIAN_CORRECT) + ' ms';
+        document.getElementById('stat-rt-avg').textContent = Math.round(avgRT) + ' ms';
+        this.renderStatBar('bar-rt', avgRT, currentMetrics.RT_MEDIAN_CORRECT, 3000, true);
+
+        // Affichage Variabilité
+        document.getElementById('stat-var-current').textContent = Math.round(currentMetrics.RTVAR_ROBUST) + ' ms';
+        document.getElementById('stat-var-avg').textContent = Math.round(avgVAR) + ' ms';
+        this.renderStatBar('bar-var', avgVAR, currentMetrics.RTVAR_ROBUST, 2000, true);
+
+        // Affichage Switch Cost
+        document.getElementById('stat-switch-current').textContent = Math.round(currentMetrics.SWITCH_COST) + ' ms';
+        document.getElementById('stat-switch-avg').textContent = Math.round(avgSWITCH) + ' ms';
+        this.renderStatBar('bar-switch', avgSWITCH, currentMetrics.SWITCH_COST, 2000, true);
+
+        // Graphique d'évolution (dernières 10 sessions)
+        this.renderHistoryChart(sessions.slice(-10));
+    },
+
+    renderStatBar(elementId, current, avg, max, inverse = false) {
+        const element = document.getElementById(elementId);
+        element.innerHTML = '';
+
+        // Barre de progression
+        const fill = document.createElement('div');
+        fill.className = 'stat-bar-fill';
+
+        let percentage;
+        if (inverse) {
+            // Pour RT et variabilité, plus bas = mieux
+            percentage = (current / max) * 100;
+        } else {
+            // Pour ACC, plus haut = mieux
+            percentage = (current / max) * 100;
+        }
+
+        fill.style.width = Math.min(percentage, 100) + '%';
+
+        // Ligne de moyenne
+        const avgLine = document.createElement('div');
+        avgLine.className = 'stat-bar-avg';
+        let avgPercentage;
+        if (inverse) {
+            avgPercentage = (avg / max) * 100;
+        } else {
+            avgPercentage = (avg / max) * 100;
+        }
+        avgLine.style.left = Math.min(avgPercentage, 100) + '%';
+
+        element.appendChild(fill);
+        element.appendChild(avgLine);
+    },
+
+    renderHistoryChart(sessions) {
+        const chartElement = document.getElementById('history-chart');
+        chartElement.innerHTML = '';
+
+        if (sessions.length === 0) {
+            chartElement.innerHTML = '<p style="text-align: center; color: #888;">Aucune donnée historique</p>';
+            return;
+        }
+
+        // Graphique simple en barres pour l'ACC
+        const maxACC = 1;
+        const chartHeight = 180;
+        const barWidth = Math.min(60, 600 / sessions.length);
+        const gap = 4;
+
+        let html = '<div style="display: flex; align-items: flex-end; justify-content: center; height: ' + chartHeight + 'px; gap: ' + gap + 'px;">';
+
+        sessions.forEach((session, i) => {
+            const acc = session.summary.metrics.ACC;
+            const height = (acc / maxACC) * chartHeight;
+            const isLast = i === sessions.length - 1;
+            const color = isLast ? 'var(--color-accent)' : '#ccc';
+
+            html += `<div style="width: ${barWidth}px; height: ${height}px; background: ${color}; border-radius: 4px 4px 0 0; transition: all 0.3s;"></div>`;
+        });
+
+        html += '</div>';
+        html += '<div style="text-align: center; margin-top: 8px; font-size: 12px; color: #888;">Précision (ACC) - Dernière session en bleu</div>';
+
+        chartElement.innerHTML = html;
     }
 };
 
