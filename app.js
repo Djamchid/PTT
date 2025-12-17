@@ -302,6 +302,9 @@ function endSession() {
         }
     };
 
+    // Sauvegarde automatique dans localStorage
+    saveSessionToStorage(summary, STATE.trials);
+
     console.log('Session ended:', summary);
     return summary;
 }
@@ -405,6 +408,66 @@ function commitResponse(action, isTimeout = false) {
     return result;
 }
 
+// ===== LOCAL STORAGE =====
+const STORAGE_KEY = 'PTT_SESSIONS';
+
+function saveSessionToStorage(summary, trials) {
+    try {
+        const sessions = loadSessionsFromStorage();
+        const sessionData = {
+            summary,
+            trials,
+            savedAt: new Date().toISOString()
+        };
+        sessions.push(sessionData);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+        console.log('Session saved to localStorage:', summary.sessionId);
+        return true;
+    } catch (error) {
+        console.error('Failed to save session to localStorage:', error);
+        return false;
+    }
+}
+
+function loadSessionsFromStorage() {
+    try {
+        const data = localStorage.getItem(STORAGE_KEY);
+        return data ? JSON.parse(data) : [];
+    } catch (error) {
+        console.error('Failed to load sessions from localStorage:', error);
+        return [];
+    }
+}
+
+function deleteLastSession() {
+    try {
+        const sessions = loadSessionsFromStorage();
+        if (sessions.length === 0) return false;
+        sessions.pop();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+        console.log('Last session deleted');
+        return true;
+    } catch (error) {
+        console.error('Failed to delete last session:', error);
+        return false;
+    }
+}
+
+function deleteAllSessions() {
+    try {
+        localStorage.removeItem(STORAGE_KEY);
+        console.log('All sessions deleted');
+        return true;
+    } catch (error) {
+        console.error('Failed to delete all sessions:', error);
+        return false;
+    }
+}
+
+function getSessionCount() {
+    return loadSessionsFromStorage().length;
+}
+
 // ===== EXPORT =====
 function exportJSON(summary) {
     const data = {
@@ -413,6 +476,16 @@ function exportJSON(summary) {
     };
     const json = JSON.stringify(data, null, 2);
     downloadFile(json, `session_export_${STATE.sessionId}.json`, 'application/json');
+}
+
+function exportAllSessionsJSON() {
+    const sessions = loadSessionsFromStorage();
+    if (sessions.length === 0) {
+        alert('Aucune session à exporter');
+        return;
+    }
+    const json = JSON.stringify(sessions, null, 2);
+    downloadFile(json, `all_sessions_export_${Date.now()}.json`, 'application/json');
 }
 
 function exportCSV() {
@@ -463,9 +536,13 @@ const UI = {
         metricStability: document.getElementById('metric-stability'),
         metricFlexibility: document.getElementById('metric-flexibility'),
         metricRegularity: document.getElementById('metric-regularity'),
+        sessionCount: document.getElementById('session-count'),
         btnReplay: document.getElementById('btn-replay'),
         btnExportJSON: document.getElementById('btn-export-json'),
         btnExportCSV: document.getElementById('btn-export-csv'),
+        btnExportAll: document.getElementById('btn-export-all'),
+        btnDeleteLast: document.getElementById('btn-delete-last'),
+        btnDeleteAll: document.getElementById('btn-delete-all'),
         feedback: document.getElementById('feedback'),
         debugInfo: document.getElementById('debug-info')
     },
@@ -495,6 +572,9 @@ const UI = {
         this.elements.btnReplay.addEventListener('click', () => this.onReplay());
         this.elements.btnExportJSON.addEventListener('click', () => this.onExportJSON());
         this.elements.btnExportCSV.addEventListener('click', () => this.onExportCSV());
+        this.elements.btnExportAll.addEventListener('click', () => this.onExportAll());
+        this.elements.btnDeleteLast.addEventListener('click', () => this.onDeleteLast());
+        this.elements.btnDeleteAll.addEventListener('click', () => this.onDeleteAll());
     },
 
     showScreen(name) {
@@ -638,6 +718,17 @@ const UI = {
         if (m.ACC < 0.75 || m.TIMEOUT_RATE > 0.15) regularity = 'Irrégulier';
         if (m.ACC > 0.9 && m.TIMEOUT_RATE < 0.05) regularity = 'Très régulier';
         this.elements.metricRegularity.textContent = regularity;
+
+        // Afficher le nombre de sessions stockées
+        this.updateSessionCount();
+    },
+
+    updateSessionCount() {
+        const count = getSessionCount();
+        const text = count === 0 ? 'Aucune session sauvegardée' :
+                     count === 1 ? '1 session sauvegardée localement' :
+                     `${count} sessions sauvegardées localement`;
+        this.elements.sessionCount.textContent = text;
     },
 
     onReplay() {
@@ -663,6 +754,38 @@ const UI = {
 
     onExportCSV() {
         exportCSV();
+    },
+
+    onExportAll() {
+        exportAllSessionsJSON();
+    },
+
+    onDeleteLast() {
+        if (confirm('Voulez-vous vraiment supprimer la dernière session sauvegardée ?')) {
+            const success = deleteLastSession();
+            if (success) {
+                this.updateSessionCount();
+                this.showFeedback('Dernière session supprimée', 2000);
+            } else {
+                this.showFeedback('Aucune session à supprimer', 2000);
+            }
+        }
+    },
+
+    onDeleteAll() {
+        const count = getSessionCount();
+        if (count === 0) {
+            this.showFeedback('Aucune session à supprimer', 2000);
+            return;
+        }
+
+        if (confirm(`Voulez-vous vraiment supprimer toutes les ${count} sessions sauvegardées ? Cette action est irréversible.`)) {
+            const success = deleteAllSessions();
+            if (success) {
+                this.updateSessionCount();
+                this.showFeedback('Toutes les sessions ont été supprimées', 2000);
+            }
+        }
     },
 
     showFeedback(text, duration = 2000) {
