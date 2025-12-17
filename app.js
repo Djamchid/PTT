@@ -410,6 +410,37 @@ function commitResponse(action, isTimeout = false) {
 
 // ===== LOCAL STORAGE =====
 const STORAGE_KEY = 'PTT_SESSIONS';
+const SETTINGS_KEY = 'PTT_SETTINGS';
+
+function saveSettings() {
+    try {
+        const settings = {
+            durationMs: CONFIG.durationMs
+        };
+        localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+        console.log('Settings saved to localStorage');
+        return true;
+    } catch (error) {
+        console.error('Failed to save settings:', error);
+        return false;
+    }
+}
+
+function loadSettings() {
+    try {
+        const data = localStorage.getItem(SETTINGS_KEY);
+        if (data) {
+            const settings = JSON.parse(data);
+            if (settings.durationMs) {
+                CONFIG.durationMs = settings.durationMs;
+            }
+        }
+        return true;
+    } catch (error) {
+        console.error('Failed to load settings:', error);
+        return false;
+    }
+}
 
 function saveSessionToStorage(summary, trials) {
     try {
@@ -562,9 +593,15 @@ const UI = {
     debounceTimer: null,
     isPaused: false,
     responseDisabled: false,
+    previousScreen: 'summary', // Pour tracer la navigation
 
     init() {
         this.bindEvents();
+
+        // Charger les paramètres sauvegardés
+        loadSettings();
+        this.updateDurationDisplay();
+
         this.showScreen('briefing');
 
         // Afficher la règle initiale dès le chargement
@@ -756,12 +793,19 @@ const UI = {
     },
 
     onSettings() {
+        // Mémoriser d'où on vient
+        const currentScreen = Object.keys(this.screens).find(key =>
+            this.screens[key].classList.contains('active')
+        );
+        this.previousScreen = currentScreen || 'summary';
+
         this.updateSessionCount();
         this.showScreen('settings');
     },
 
     onBack() {
-        this.showScreen('summary');
+        // Retourner à l'écran précédent
+        this.showScreen(this.previousScreen);
     },
 
     onStats() {
@@ -784,9 +828,19 @@ const UI = {
     onDurationChange(e) {
         const seconds = parseInt(e.target.value);
         CONFIG.durationMs = seconds * 1000;
+        this.updateDurationDisplay();
+        saveSettings(); // Sauvegarder automatiquement
+    },
+
+    updateDurationDisplay() {
+        const seconds = Math.floor(CONFIG.durationMs / 1000);
         const minutes = Math.floor(seconds / 60);
         const secs = seconds % 60;
         this.elements.durationValue.textContent = `${minutes}:${secs.toString().padStart(2, '0')}`;
+        // Mettre à jour aussi le slider
+        if (this.elements.durationSlider) {
+            this.elements.durationSlider.value = seconds;
+        }
     },
 
     onExportJSON() {

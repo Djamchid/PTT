@@ -32,8 +32,8 @@
             </div>
         </div>
         <div class="screen-footer">
-            <div class="action-buttons" style="flex-direction: row; justify-content: center; align-items: center;">
-                <button id="btn-ready" class="btn btn-primary" style="max-width: 300px;">Je suis prêt·e</button>
+            <div class="action-buttons" style="flex-direction: row; justify-content: center; align-items: center; gap: 12px;">
+                <button id="btn-ready" class="btn btn-primary" style="flex: 1;">Je suis prêt·e</button>
                 <button id="btn-settings-briefing" class="btn btn-icon" title="Paramètres" style="font-size: 24px; width: 56px; height: 56px; position: static;">⚙️</button>
             </div>
         </div>
@@ -227,6 +227,21 @@
         </div>
         <div class="screen-body">
             <div style="max-width: 800px; margin: 0 auto; width: 100%;">
+
+                <!-- Légende -->
+                <div style="background: white; padding: 16px; border-radius: var(--radius); box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 24px; display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 40px; height: 8px; background: var(--color-accent); border-radius: 4px;"></div>
+                        <span style="font-size: 14px; color: #666;">Barre = Session présente</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 40px; height: 8px; background: #e0e0e0; border-radius: 4px; position: relative;">
+                            <div style="position: absolute; left: 50%; top: 0; width: 2px; height: 100%; background: #ff6b6b;"></div>
+                        </div>
+                        <span style="font-size: 14px; color: #666;">Trait rouge = Moyenne historique</span>
+                    </div>
+                </div>
+
                 <!-- Cartes de comparaison -->
                 <div style="display: grid; gap: 16px; margin-bottom: 32px;">
                     <div class="metric-card">
