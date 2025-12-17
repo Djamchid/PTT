@@ -481,10 +481,11 @@ Définition (simple et stable) :
 
 ---
 
-## 13\) Stack & structure de repo (suggestion)
+## 13\) Stack & structure de repo
 
 ### HTML/JS pur
 
+fichiers séparés pour html, css, chaque module js
 * `engine.js`, `ui.js`, `screens.js`, `export.js`, `assets/*`
 
 ---
