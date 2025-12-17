@@ -200,6 +200,8 @@ p {
     gap: var(--spacing);
     width: 100%;
     max-width: 600px;
+    margin: 0 auto;
+    justify-content: center;
 }
 
 .btn-icon {
@@ -262,6 +264,7 @@ p {
     gap: var(--spacing);
     width: 100%;
     max-width: 400px;
+    margin: 0 auto;
 }
 
 /* ===== FEEDBACK ===== */
