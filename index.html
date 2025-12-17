@@ -54,6 +54,7 @@
     <div id="screen-summary" class="screen">
         <div class="screen-header">
             <h1>Merci. À bientôt.</h1>
+            <p id="session-count" style="color: #888; font-size: 14px; margin-top: 8px;"></p>
         </div>
         <div class="screen-body">
             <div class="summary-grid">
@@ -77,8 +78,13 @@
         <div class="screen-footer">
             <div class="action-buttons">
                 <button id="btn-replay" class="btn btn-primary">Rejouer</button>
-                <button id="btn-export-json" class="btn btn-secondary">Exporter JSON</button>
-                <button id="btn-export-csv" class="btn btn-secondary">Exporter CSV</button>
+                <button id="btn-export-json" class="btn btn-secondary">Exporter cette session (JSON)</button>
+                <button id="btn-export-csv" class="btn btn-secondary">Exporter cette session (CSV)</button>
+            </div>
+            <div class="action-buttons" style="margin-top: 12px;">
+                <button id="btn-export-all" class="btn btn-secondary">Exporter toutes les sessions</button>
+                <button id="btn-delete-last" class="btn btn-secondary" style="background: #ff6b6b;">Supprimer dernière session</button>
+                <button id="btn-delete-all" class="btn btn-secondary" style="background: #d63031;">Supprimer toutes les sessions</button>
             </div>
         </div>
     </div>
