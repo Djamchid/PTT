@@ -945,17 +945,17 @@ const UI = {
         // Affichage RT
         document.getElementById('stat-rt-current').textContent = Math.round(currentMetrics.RT_MEDIAN_CORRECT) + ' ms';
         document.getElementById('stat-rt-avg').textContent = Math.round(avgRT) + ' ms';
-        this.renderStatBar('bar-rt', avgRT, currentMetrics.RT_MEDIAN_CORRECT, 3000, true);
+        this.renderStatBar('bar-rt', currentMetrics.RT_MEDIAN_CORRECT, avgRT, 3000, true);
 
         // Affichage Variabilité
         document.getElementById('stat-var-current').textContent = Math.round(currentMetrics.RTVAR_ROBUST) + ' ms';
         document.getElementById('stat-var-avg').textContent = Math.round(avgVAR) + ' ms';
-        this.renderStatBar('bar-var', avgVAR, currentMetrics.RTVAR_ROBUST, 2000, true);
+        this.renderStatBar('bar-var', currentMetrics.RTVAR_ROBUST, avgVAR, 2000, true);
 
         // Affichage Switch Cost
         document.getElementById('stat-switch-current').textContent = Math.round(currentMetrics.SWITCH_COST) + ' ms';
         document.getElementById('stat-switch-avg').textContent = Math.round(avgSWITCH) + ' ms';
-        this.renderStatBar('bar-switch', avgSWITCH, currentMetrics.SWITCH_COST, 2000, true);
+        this.renderStatBar('bar-switch', currentMetrics.SWITCH_COST, avgSWITCH, 2000, true);
 
         // Graphique d'évolution (dernières 10 sessions)
         this.renderHistoryChart(sessions.slice(-10));
