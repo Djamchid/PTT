@@ -50,6 +50,15 @@ body {
     flex-shrink: 0;
     text-align: center;
     padding: var(--spacing) 0;
+    position: relative;
+}
+
+.screen-header .btn-icon {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
 }
 
 .screen-body {
