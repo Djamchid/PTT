@@ -116,6 +116,11 @@
                     <button id="btn-stats" class="btn btn-primary">📊 Statistiques comparatives</button>
                 </div>
 
+                <h3 style="margin-bottom: 16px; color: #333;">Aide</h3>
+                <div class="action-buttons" style="margin-bottom: 32px;">
+                    <button id="btn-help" class="btn btn-secondary">📖 Mode d'emploi détaillé</button>
+                </div>
+
                 <h3 style="margin-bottom: 16px; color: #333;">Exporter les données</h3>
                 <div class="action-buttons" style="margin-bottom: 32px;">
                     <button id="btn-export-json" class="btn btn-secondary">Session actuelle (JSON)</button>
@@ -135,7 +140,86 @@
         </div>
     </div>
 
-    <!-- ===== ÉCRAN E: STATISTIQUES ===== -->
+    <!-- ===== ÉCRAN E: MODE D'EMPLOI ===== -->
+    <div id="screen-help" class="screen">
+        <div class="screen-header">
+            <h1>Mode d'emploi détaillé</h1>
+        </div>
+        <div class="screen-body">
+            <div style="max-width: 700px; margin: 0 auto; width: 100%;">
+
+                <div class="metric-card" style="margin-bottom: 24px;">
+                    <h3 style="color: var(--color-accent); margin-bottom: 16px;">🎮 Comment jouer</h3>
+                    <p style="margin-bottom: 12px; line-height: 1.6;">
+                        Des <strong>lettres</strong>, <strong>chiffres</strong> ou <strong>formes</strong> apparaissent à l'écran.
+                        Tu dois répondre <strong>OUI</strong> ou <strong>NON</strong> selon la règle affichée en haut de l'écran.
+                    </p>
+                    <p style="line-height: 1.6; color: #666;">
+                        La règle change régulièrement pendant le jeu. Un message "Nouvelle règle." apparaîtra pour te prévenir.
+                    </p>
+                </div>
+
+                <div class="metric-card" style="margin-bottom: 24px;">
+                    <h3 style="color: var(--color-accent); margin-bottom: 16px;">📋 Les règles possibles</h3>
+
+                    <div style="margin-bottom: 20px; padding: 12px; background: #f8f9fa; border-radius: 8px;">
+                        <h4 style="margin-bottom: 8px;">🔤 "Appuie si c'est une LETTRE"</h4>
+                        <p style="color: #666; font-size: 14px;">Réponds OUI uniquement pour les lettres (A, B, C, D, E, F, G, H)</p>
+                        <p style="color: #666; font-size: 14px; margin-top: 4px;">❌ Les chiffres et formes = NON</p>
+                    </div>
+
+                    <div style="margin-bottom: 20px; padding: 12px; background: #f8f9fa; border-radius: 8px;">
+                        <h4 style="margin-bottom: 8px;">⭕ "Appuie si c'est un CERCLE"</h4>
+                        <p style="color: #666; font-size: 14px;">Réponds OUI uniquement pour les cercles (formes rondes)</p>
+                        <p style="color: #666; font-size: 14px; margin-top: 4px;">❌ Les carrés, triangles, lettres et chiffres = NON</p>
+                    </div>
+
+                    <div style="margin-bottom: 20px; padding: 12px; background: #e3f2fd; border-radius: 8px; border: 2px solid #2196F3;">
+                        <h4 style="margin-bottom: 8px;">🔵 "Appuie si c'est BLEU"</h4>
+                        <p style="font-weight: 500; margin-bottom: 12px;">⚠️ Attention : la couleur fonctionne différemment selon le type :</p>
+
+                        <div style="background: white; padding: 12px; border-radius: 6px; margin-bottom: 8px;">
+                            <p style="margin-bottom: 8px;"><strong>Pour les LETTRES et CHIFFRES :</strong></p>
+                            <p style="color: #666; font-size: 14px;">✅ Le <span style="color: blue; font-weight: bold;">TEXTE est coloré en bleu</span> sur fond gris clair</p>
+                            <p style="color: #666; font-size: 14px;">Exemple : <span style="color: blue; font-size: 20px; font-weight: bold;">A</span> = c'est bleu !</p>
+                        </div>
+
+                        <div style="background: white; padding: 12px; border-radius: 6px;">
+                            <p style="margin-bottom: 8px;"><strong>Pour les FORMES :</strong></p>
+                            <p style="color: #666; font-size: 14px;">✅ La <strong>FORME ENTIÈRE est remplie en bleu</strong></p>
+                            <p style="color: #666; font-size: 14px;">Exemple : <span style="display: inline-block; width: 30px; height: 30px; background: blue; border-radius: 50%; vertical-align: middle;"></span> = c'est bleu !</p>
+                        </div>
+
+                        <p style="margin-top: 12px; font-size: 14px; color: #666;">
+                            💡 Les couleurs possibles sont : bleu, rouge et gris
+                        </p>
+                    </div>
+
+                    <div style="padding: 12px; background: #f8f9fa; border-radius: 8px;">
+                        <h4 style="margin-bottom: 8px;">🔁 "Appuie si c'est le MÊME qu'avant"</h4>
+                        <p style="color: #666; font-size: 14px;">Réponds OUI si le stimulus est exactement identique au précédent</p>
+                        <p style="color: #666; font-size: 14px; margin-top: 4px;">(même type, même couleur, même valeur)</p>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h3 style="color: var(--color-accent); margin-bottom: 16px;">💡 Conseils</h3>
+                    <ul style="line-height: 1.8; color: #666;">
+                        <li>Prends ton temps, la rapidité vient avec la pratique</li>
+                        <li>Lis bien la règle en haut de l'écran avant de répondre</li>
+                        <li>Fais une pause si tu te sens fatigué·e (bouton pause ⏸)</li>
+                        <li>N'oublie pas : pour "c'est BLEU", regarde bien si c'est le texte ou la forme qui est coloré !</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div class="screen-footer">
+            <button id="btn-back-help" class="btn btn-primary" style="max-width: 200px; margin: 0 auto; display: block;">Retour</button>
+        </div>
+    </div>
+
+    <!-- ===== ÉCRAN F: STATISTIQUES ===== -->
     <div id="screen-stats" class="screen">
         <div class="screen-header">
             <h1>Statistiques comparatives</h1>

@@ -525,6 +525,7 @@ const UI = {
         game: document.getElementById('screen-game'),
         summary: document.getElementById('screen-summary'),
         settings: document.getElementById('screen-settings'),
+        help: document.getElementById('screen-help'),
         stats: document.getElementById('screen-stats')
     },
     elements: {
@@ -545,6 +546,8 @@ const UI = {
         btnBack: document.getElementById('btn-back'),
         btnStats: document.getElementById('btn-stats'),
         btnBackStats: document.getElementById('btn-back-stats'),
+        btnHelp: document.getElementById('btn-help'),
+        btnBackHelp: document.getElementById('btn-back-help'),
         btnExportJSON: document.getElementById('btn-export-json'),
         btnExportCSV: document.getElementById('btn-export-csv'),
         btnExportAll: document.getElementById('btn-export-all'),
@@ -584,6 +587,8 @@ const UI = {
         this.elements.btnBack.addEventListener('click', () => this.onBack());
         this.elements.btnStats.addEventListener('click', () => this.onStats());
         this.elements.btnBackStats.addEventListener('click', () => this.onBackStats());
+        this.elements.btnHelp.addEventListener('click', () => this.onHelp());
+        this.elements.btnBackHelp.addEventListener('click', () => this.onBackHelp());
         this.elements.btnExportJSON.addEventListener('click', () => this.onExportJSON());
         this.elements.btnExportCSV.addEventListener('click', () => this.onExportCSV());
         this.elements.btnExportAll.addEventListener('click', () => this.onExportAll());
@@ -765,6 +770,14 @@ const UI = {
     },
 
     onBackStats() {
+        this.showScreen('settings');
+    },
+
+    onHelp() {
+        this.showScreen('help');
+    },
+
+    onBackHelp() {
         this.showScreen('settings');
     },
 
