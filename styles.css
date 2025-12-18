@@ -10,6 +10,14 @@
     --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --radius: 16px;
     --spacing: 16px;
+
+    /* Responsive typography - Mobile first */
+    --font-size-h1: 22px;
+    --font-size-h2: 18px;
+    --font-size-p: 16px;
+    --font-size-briefing: 18px;
+    --font-size-stimulus: 80px;
+    --font-size-button: 18px;
 }
 
 /* ===== RESET & BASE ===== */
@@ -77,36 +85,42 @@ body {
 
 /* ===== TYPOGRAPHIE ===== */
 h1 {
-    font-size: 28px;
+    font-size: var(--font-size-h1);
     font-weight: 600;
     color: var(--color-accent);
     margin-bottom: calc(var(--spacing) / 2);
 }
 
 h2 {
-    font-size: 20px;
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    margin-bottom: var(--spacing);
+}
+
+h3 {
+    font-size: 16px;
     font-weight: 600;
     margin-bottom: var(--spacing);
 }
 
 p {
-    font-size: 16px;
+    font-size: var(--font-size-p);
     line-height: 1.6;
 }
 
 /* ===== RÈGLE ===== */
 .rule-card {
     background: white;
-    padding: calc(var(--spacing) * 2);
+    padding: var(--spacing);
     border-radius: var(--radius);
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     text-align: center;
-    max-width: 500px;
+    max-width: 100%;
     width: 100%;
 }
 
 .rule-card h2 {
-    font-size: 24px;
+    font-size: var(--font-size-h2);
     font-weight: 600;
     color: var(--color-text);
     line-height: 1.4;
@@ -114,11 +128,11 @@ p {
 
 .rule-banner {
     background: white;
-    padding: var(--spacing);
+    padding: 12px;
     border-radius: var(--radius);
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     text-align: center;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     color: var(--color-text);
     position: sticky;
@@ -129,8 +143,8 @@ p {
 /* ===== STIMULUS ===== */
 .stimulus-container {
     width: 100%;
-    max-width: 400px;
-    height: 400px;
+    max-width: 100%;
+    height: 280px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -138,15 +152,15 @@ p {
 }
 
 .stimulus {
-    font-size: 120px;
+    font-size: var(--font-size-stimulus);
     font-weight: 600;
     text-align: center;
     transition: opacity 0.2s ease;
 }
 
 .stimulus.shape {
-    width: 160px;
-    height: 160px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
 }
 
@@ -157,20 +171,20 @@ p {
 .stimulus.shape.triangle {
     width: 0;
     height: 0;
-    border-left: 80px solid transparent;
-    border-right: 80px solid transparent;
-    border-bottom: 140px solid currentColor;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    border-bottom: 105px solid currentColor;
     font-size: 0;
 }
 
 /* ===== BOUTONS ===== */
 .btn {
-    min-height: 64px;
-    padding: var(--spacing) calc(var(--spacing) * 2);
+    min-height: 56px;
+    padding: 12px 16px;
     border: none;
     border-radius: var(--radius);
     font-family: var(--font-family);
-    font-size: 20px;
+    font-size: var(--font-size-button);
     font-weight: 500;
     cursor: pointer;
     transition: transform 0.1s ease, box-shadow 0.1s ease;
@@ -193,7 +207,7 @@ p {
     background: var(--color-btn-yes);
     color: var(--color-text);
     flex: 1;
-    min-width: 40%;
+    min-width: 0;
 }
 
 .btn-no {
@@ -201,21 +215,21 @@ p {
     color: var(--color-text);
     border: 2px solid #ccc;
     flex: 1;
-    min-width: 40%;
+    min-width: 0;
 }
 
 .response-buttons {
     display: flex;
-    gap: var(--spacing);
+    gap: 12px;
     width: 100%;
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto;
     justify-content: center;
 }
 
 .btn-icon {
-    min-height: 48px;
-    width: 48px;
+    min-height: 44px;
+    width: 44px;
     padding: 0;
     display: flex;
     align-items: center;
@@ -226,6 +240,7 @@ p {
     position: absolute;
     top: var(--spacing);
     right: var(--spacing);
+    font-size: 20px;
 }
 
 .btn-secondary {
@@ -239,30 +254,30 @@ p {
     display: grid;
     gap: var(--spacing);
     width: 100%;
-    max-width: 600px;
+    max-width: 100%;
 }
 
 .metric-card {
     background: white;
-    padding: calc(var(--spacing) * 1.5);
+    padding: var(--spacing);
     border-radius: var(--radius);
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .metric-label {
-    font-size: 14px;
+    font-size: 13px;
     color: #666;
     margin-bottom: 4px;
 }
 
 .metric-value {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 600;
     color: var(--color-accent);
 }
 
 .metric-description {
-    font-size: 14px;
+    font-size: 13px;
     color: #888;
     margin-top: 8px;
 }
@@ -272,7 +287,7 @@ p {
     flex-direction: column;
     gap: var(--spacing);
     width: 100%;
-    max-width: 400px;
+    max-width: 100%;
     margin: 0 auto;
 }
 
@@ -316,14 +331,201 @@ p {
     margin-bottom: calc(var(--spacing) * 2);
 }
 
+/* Conteneur briefing */
+.briefing-container {
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+/* Texte briefing */
+.briefing-text {
+    font-size: var(--font-size-briefing);
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Texte note */
+.note-text {
+    font-size: 16px;
+    color: #888;
+    margin-top: 16px;
+}
+
+/* Conteneur settings/help/stats */
+.content-container {
+    max-width: 100%;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Légende stats */
+.stats-legend {
+    background: white;
+    padding: 12px;
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-size: 13px;
+}
+
+/* Conteneur des boutons en ligne */
+.buttons-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
 /* ===== RESPONSIVE ===== */
+/* Mobile petit (480px et plus) */
+@media (min-width: 480px) {
+    :root {
+        --font-size-h1: 24px;
+        --font-size-h2: 20px;
+        --font-size-briefing: 22px;
+        --font-size-stimulus: 100px;
+        --font-size-button: 19px;
+    }
+
+    .stimulus-container {
+        height: 320px;
+    }
+
+    .stimulus.shape {
+        width: 140px;
+        height: 140px;
+    }
+
+    .stimulus.shape.triangle {
+        border-left: 70px solid transparent;
+        border-right: 70px solid transparent;
+        border-bottom: 120px solid currentColor;
+    }
+
+    .rule-card {
+        padding: calc(var(--spacing) * 1.5);
+    }
+
+    .metric-card {
+        padding: calc(var(--spacing) * 1.5);
+    }
+
+    .briefing-container {
+        max-width: 480px;
+    }
+
+    .note-text {
+        font-size: 18px;
+    }
+
+    .stats-legend {
+        padding: 16px;
+        gap: 20px;
+        font-size: 14px;
+    }
+}
+
+/* Tablette (768px et plus) */
 @media (min-width: 768px) {
+    :root {
+        --font-size-h1: 28px;
+        --font-size-h2: 22px;
+        --font-size-briefing: 28px;
+        --font-size-stimulus: 120px;
+        --font-size-button: 20px;
+    }
+
     .screen {
         padding: calc(var(--spacing) * 2);
     }
 
     .summary-grid {
         grid-template-columns: repeat(2, 1fr);
+        max-width: 600px;
+    }
+
+    .stimulus-container {
+        height: 400px;
+        max-width: 400px;
+    }
+
+    .stimulus.shape {
+        width: 160px;
+        height: 160px;
+    }
+
+    .stimulus.shape.triangle {
+        border-left: 80px solid transparent;
+        border-right: 80px solid transparent;
+        border-bottom: 140px solid currentColor;
+    }
+
+    .response-buttons {
+        max-width: 600px;
+        gap: var(--spacing);
+    }
+
+    .action-buttons {
+        max-width: 400px;
+    }
+
+    .rule-card {
+        padding: calc(var(--spacing) * 2);
+        max-width: 500px;
+    }
+
+    .rule-banner {
+        padding: var(--spacing);
+        font-size: 20px;
+    }
+
+    .metric-value {
+        font-size: 28px;
+    }
+
+    .metric-label,
+    .metric-description {
+        font-size: 14px;
+    }
+
+    .btn {
+        min-height: 64px;
+        padding: var(--spacing) calc(var(--spacing) * 2);
+    }
+
+    .btn-icon {
+        min-height: 48px;
+        width: 48px;
+    }
+
+    .content-container {
+        max-width: 600px;
+    }
+
+    .stats-legend {
+        gap: 32px;
+    }
+}
+
+/* Desktop (1024px et plus) */
+@media (min-width: 1024px) {
+    .summary-grid {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 800px;
+    }
+
+    .content-container {
+        max-width: 800px;
     }
 }
 
