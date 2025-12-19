@@ -44,9 +44,12 @@ body {
     display: none;
     flex-direction: column;
     min-height: 100vh;
+    max-height: 100vh;
     padding: var(--spacing);
     opacity: 0;
     transition: opacity 0.3s ease;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .screen.active {
@@ -377,13 +380,26 @@ p {
 /* Conteneur des boutons en ligne */
 .buttons-row {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     gap: 12px;
     width: 100%;
     max-width: 100%;
     margin: 0 auto;
+}
+
+/* Bouton principal dans buttons-row */
+.btn-ready-main {
+    width: 100%;
+}
+
+/* Bouton settings inline dans buttons-row */
+.btn-settings-inline {
+    position: static !important;
+    width: 100%;
+    min-height: 56px;
+    font-size: 24px;
 }
 
 /* ===== RESPONSIVE ===== */
@@ -432,6 +448,20 @@ p {
         padding: 16px;
         gap: 20px;
         font-size: 14px;
+    }
+
+    .buttons-row {
+        flex-direction: row;
+        max-width: 480px;
+    }
+
+    .btn-ready-main {
+        flex: 1;
+    }
+
+    .btn-settings-inline {
+        width: 56px;
+        min-height: 56px;
     }
 }
 
@@ -514,6 +544,15 @@ p {
 
     .stats-legend {
         gap: 32px;
+    }
+
+    .buttons-row {
+        max-width: 500px;
+    }
+
+    .btn-settings-inline {
+        width: 64px;
+        min-height: 64px;
     }
 }
 
