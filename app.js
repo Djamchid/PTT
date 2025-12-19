@@ -346,6 +346,7 @@ function startTrial() {
         trialMeta: {
             trialIndex: STATE.trialIndex,
             isSwitchTrial,
+            shouldPress,
             level: STATE.level,
             paceMs: STATE.paceMs,
             responseWindowMs: CONFIG.responseWindowMs,
@@ -793,6 +794,16 @@ const UI = {
     },
 
     onSettings() {
+        // Arrêter le timer de session si le jeu est en cours
+        if (this.sessionTimer) {
+            clearTimeout(this.sessionTimer);
+            this.sessionTimer = null;
+        }
+        if (STATE.responseTimer) {
+            clearTimeout(STATE.responseTimer);
+            STATE.responseTimer = null;
+        }
+
         // Mémoriser d'où on vient
         const currentScreen = Object.keys(this.screens).find(key =>
             this.screens[key].classList.contains('active')
@@ -806,6 +817,9 @@ const UI = {
     onBack() {
         // Retourner à l'écran précédent
         this.showScreen(this.previousScreen);
+
+        // Si on retourne au jeu, NE PAS redémarrer le timer
+        // Le jeu est considéré comme terminé si on a quitté
     },
 
     onStats() {
