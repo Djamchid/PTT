@@ -13,7 +13,7 @@ const CONFIG = {
     ruleset: ['R1', 'R2', 'R3'],
     levelStart: 1,
     colors: ['blue', 'red', 'gray'],
-    debugMode: false
+    debugMode: true
 };
 
 // ===== RÈGLES =====
@@ -1034,9 +1034,9 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Prends Ton Temps initialized');
 });
 
-// Mode debug avec Ctrl+D
+// Mode debug avec Ctrl+q
 document.addEventListener('keydown', (e) => {
-    if (e.ctrlKey && e.key === 'd') {
+    if (e.ctrlKey && e.key === 'q') {
         e.preventDefault();
         CONFIG.debugMode = !CONFIG.debugMode;
         document.body.classList.toggle('debug-mode');
