@@ -62,12 +62,21 @@ body {
     text-align: center;
     padding: 0 0 var(--spacing) 0;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .screen-header .btn-icon {
-    position: static;
+    position: absolute;
+    left: 0;
     display: inline-block;
-    margin-bottom: 12px;
+    margin-bottom: 0;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background: transparent;
+    color: var(--color-accent);
 }
 
 .screen-body {
@@ -373,7 +382,7 @@ p {
     justify-content: center;
     gap: 12px;
     flex-wrap: wrap;
-    font-size: 13px;
+    font-size: 26px;
 }
 
 /* Conteneur des boutons en ligne */
@@ -405,26 +414,26 @@ p {
 /* Mobile petit (480px et plus) */
 @media (min-width: 480px) {
     :root {
-        --font-size-h1: 24px;
-        --font-size-h2: 20px;
-        --font-size-briefing: 22px;
-        --font-size-stimulus: 100px;
-        --font-size-button: 19px;
+        --font-size-h1: 52px;
+        --font-size-h2: 44px;
+        --font-size-briefing: 44px;
+        --font-size-stimulus: 200px;
+        --font-size-button: 38px;
     }
 
     .stimulus-container {
-        height: 260px;
+        height: 280px;
     }
 
     .stimulus.shape {
-        width: 130px;
-        height: 130px;
+        width: 160px;
+        height: 160px;
     }
 
     .stimulus.shape.triangle {
-        border-left: 65px solid transparent;
-        border-right: 65px solid transparent;
-        border-bottom: 113px solid currentColor;
+        border-left: 80px solid transparent;
+        border-right: 80px solid transparent;
+        border-bottom: 140px solid currentColor;
     }
 
     .rule-card {
@@ -440,7 +449,7 @@ p {
     }
 
     .note-text {
-        font-size: 18px;
+        font-size: 36px;
         margin-top: 16px;
     }
 
@@ -451,7 +460,7 @@ p {
     .stats-legend {
         padding: 16px;
         gap: 20px;
-        font-size: 14px;
+        font-size: 28px;
     }
 
     .buttons-row {
@@ -468,19 +477,19 @@ p {
     }
 
     .btn-settings-inline {
-        width: 56px;
-        min-height: 56px;
+        width: 80px;
+        min-height: 80px;
     }
 }
 
 /* Tablette (768px et plus) */
 @media (min-width: 768px) {
     :root {
-        --font-size-h1: 28px;
-        --font-size-h2: 22px;
-        --font-size-briefing: 28px;
-        --font-size-stimulus: 120px;
-        --font-size-button: 20px;
+        --font-size-h1: 56px;
+        --font-size-h2: 48px;
+        --font-size-briefing: 48px;
+        --font-size-stimulus: 220px;
+        --font-size-button: 40px;
     }
 
     .screen {
@@ -498,14 +507,14 @@ p {
     }
 
     .stimulus.shape {
-        width: 160px;
-        height: 160px;
+        width: 180px;
+        height: 180px;
     }
 
     .stimulus.shape.triangle {
-        border-left: 80px solid transparent;
-        border-right: 80px solid transparent;
-        border-bottom: 140px solid currentColor;
+        border-left: 90px solid transparent;
+        border-right: 90px solid transparent;
+        border-bottom: 156px solid currentColor;
     }
 
     .response-buttons {
@@ -524,26 +533,26 @@ p {
 
     .rule-banner {
         padding: var(--spacing);
-        font-size: 20px;
+        font-size: 36px;
     }
 
     .metric-value {
-        font-size: 28px;
+        font-size: 52px;
     }
 
     .metric-label,
     .metric-description {
-        font-size: 14px;
+        font-size: 28px;
     }
 
     .btn {
-        min-height: 64px;
+        min-height: 90px;
         padding: var(--spacing) calc(var(--spacing) * 2);
     }
 
     .btn-icon {
-        min-height: 48px;
-        width: 48px;
+        min-height: 90px;
+        width: 90px;
     }
 
     .content-container {
@@ -552,6 +561,7 @@ p {
 
     .stats-legend {
         gap: 32px;
+        font-size: 32px;
     }
 
     .buttons-row {
@@ -559,8 +569,8 @@ p {
     }
 
     .btn-settings-inline {
-        width: 64px;
-        min-height: 64px;
+        width: 90px;
+        min-height: 90px;
     }
 
     .screen-body {
