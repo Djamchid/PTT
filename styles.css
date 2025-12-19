@@ -12,11 +12,11 @@
     --spacing: 16px;
 
     /* Responsive typography - Mobile first */
-    --font-size-h1: 22px;
-    --font-size-h2: 18px;
+    --font-size-h1: 24px;
+    --font-size-h2: 20px;
     --font-size-p: 16px;
-    --font-size-briefing: 18px;
-    --font-size-stimulus: 80px;
+    --font-size-briefing: 20px;
+    --font-size-stimulus: 90px;
     --font-size-button: 18px;
 }
 
@@ -148,7 +148,7 @@ p {
 .stimulus-container {
     width: 100%;
     max-width: 100%;
-    height: 280px;
+    height: 180px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -163,8 +163,8 @@ p {
 }
 
 .stimulus.shape {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
 }
 
@@ -175,9 +175,9 @@ p {
 .stimulus.shape.triangle {
     width: 0;
     height: 0;
-    border-left: 60px solid transparent;
-    border-right: 60px solid transparent;
-    border-bottom: 105px solid currentColor;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 87px solid currentColor;
     font-size: 0;
 }
 
@@ -352,7 +352,7 @@ p {
 
 /* Texte note */
 .note-text {
-    font-size: 15px;
+    font-size: 16px;
     color: #888;
     margin-top: 12px;
 }
@@ -415,18 +415,18 @@ p {
     }
 
     .stimulus-container {
-        height: 320px;
+        height: 260px;
     }
 
     .stimulus.shape {
-        width: 140px;
-        height: 140px;
+        width: 130px;
+        height: 130px;
     }
 
     .stimulus.shape.triangle {
-        border-left: 70px solid transparent;
-        border-right: 70px solid transparent;
-        border-bottom: 120px solid currentColor;
+        border-left: 65px solid transparent;
+        border-right: 65px solid transparent;
+        border-bottom: 113px solid currentColor;
     }
 
     .rule-card {
