@@ -12,12 +12,12 @@
     --spacing: 16px;
 
     /* Responsive typography - Mobile first */
-    --font-size-h1: 24px;
-    --font-size-h2: 20px;
-    --font-size-p: 16px;
-    --font-size-briefing: 20px;
-    --font-size-stimulus: 90px;
-    --font-size-button: 18px;
+    --font-size-h1: 48px;
+    --font-size-h2: 40px;
+    --font-size-p: 32px;
+    --font-size-briefing: 40px;
+    --font-size-stimulus: 180px;
+    --font-size-button: 36px;
 }
 
 /* ===== RESET & BASE ===== */
@@ -65,11 +65,9 @@ body {
 }
 
 .screen-header .btn-icon {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 20px;
+    position: static;
+    display: inline-block;
+    margin-bottom: 12px;
 }
 
 .screen-body {
@@ -78,8 +76,8 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    gap: var(--spacing);
-    padding-top: var(--spacing);
+    gap: calc(var(--spacing) * 0.5);
+    padding-top: 0;
 }
 
 .screen-footer {
@@ -102,7 +100,7 @@ h2 {
 }
 
 h3 {
-    font-size: 16px;
+    font-size: 32px;
     font-weight: 600;
     margin-bottom: var(--spacing);
 }
@@ -132,11 +130,11 @@ p {
 
 .rule-banner {
     background: white;
-    padding: 12px;
+    padding: 16px;
     border-radius: var(--radius);
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     text-align: center;
-    font-size: 16px;
+    font-size: 32px;
     font-weight: 600;
     color: var(--color-text);
     position: sticky;
@@ -148,11 +146,14 @@ p {
 .stimulus-container {
     width: 100%;
     max-width: 100%;
-    height: 180px;
+    height: auto;
+    min-height: 180px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    padding: 0;
+    margin: 0;
 }
 
 .stimulus {
@@ -163,8 +164,8 @@ p {
 }
 
 .stimulus.shape {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
 }
 
@@ -175,16 +176,16 @@ p {
 .stimulus.shape.triangle {
     width: 0;
     height: 0;
-    border-left: 50px solid transparent;
-    border-right: 50px solid transparent;
-    border-bottom: 87px solid currentColor;
+    border-left: 75px solid transparent;
+    border-right: 75px solid transparent;
+    border-bottom: 130px solid currentColor;
     font-size: 0;
 }
 
 /* ===== BOUTONS ===== */
 .btn {
-    min-height: 56px;
-    padding: 12px 16px;
+    min-height: 80px;
+    padding: 20px 24px;
     border: none;
     border-radius: var(--radius);
     font-family: var(--font-family);
@@ -232,8 +233,8 @@ p {
 }
 
 .btn-icon {
-    min-height: 44px;
-    width: 44px;
+    min-height: 80px;
+    width: 80px;
     padding: 0;
     display: flex;
     align-items: center;
@@ -241,10 +242,7 @@ p {
     background: white;
     color: var(--color-accent);
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    position: absolute;
-    top: var(--spacing);
-    right: var(--spacing);
-    font-size: 20px;
+    font-size: 40px;
 }
 
 .btn-secondary {
@@ -269,21 +267,21 @@ p {
 }
 
 .metric-label {
-    font-size: 13px;
+    font-size: 26px;
     color: #666;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 }
 
 .metric-value {
-    font-size: 24px;
+    font-size: 48px;
     font-weight: 600;
     color: var(--color-accent);
 }
 
 .metric-description {
-    font-size: 13px;
+    font-size: 26px;
     color: #888;
-    margin-top: 8px;
+    margin-top: 12px;
 }
 
 .action-buttons {
@@ -352,7 +350,7 @@ p {
 
 /* Texte note */
 .note-text {
-    font-size: 16px;
+    font-size: 32px;
     color: #888;
     margin-top: 12px;
 }
@@ -399,8 +397,8 @@ p {
 .btn-settings-inline {
     position: static !important;
     width: 100%;
-    min-height: 56px;
-    font-size: 24px;
+    min-height: 80px;
+    font-size: 48px;
 }
 
 /* ===== RESPONSIVE ===== */
