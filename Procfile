@@ -1,1 +1,1 @@
-web: start-nginx
+web: bin/run
